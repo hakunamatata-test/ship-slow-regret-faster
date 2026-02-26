@@ -1,19 +1,98 @@
-# Local Discovery & Events MCP Server
+# BUILD the MCP
 
-An MCP (Model Context Protocol) server that helps you discover local restaurants, events, and activities, check dine-in/delivery/vegetarian options, get event and venue details, and summarize recommendations.
+This phase focuses on **building** a real MCP (Model Context Protocol) server: **Local Discovery & Events**. You will run it through [**MCPJam Inspector**](https://github.com/MCPJam/inspector), the same tool used for the Break challenges, and interact with it via chat and tools.
 
-**Story**: *"Help me discover local restaurants, events, and activities in my area, get reviews, and summarize recommendations."*
+**Story:** *"Help me discover local restaurants, events, and activities—find places, check dine-in/delivery/vegetarian options, and explore events and venues in my area."*
+
+The server exposes tools and resources so an AI (or user) can search for restaurants or coffee shops (Google Places), check dining options for those places, and search for events and venues (Ticketmaster Discovery). Stored place and event IDs are exposed as MCP resources for follow-up queries.
+
+---
+
+## Prerequisites
+
+- **uv** (Python package manager) — [install](https://docs.astral.sh/uv/getting-started/installation/)
+- **Node.js** and **npm** (for MCPJam Inspector) — [install](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)  
+  On macOS, if `npx` is not available after installing Node.js:
+  ```bash
+  brew update && brew install node
+  ```
+- **MCPJam account** (for model access in Inspector) — [sign up](https://login.mcpjam.com/sign-up)
+- This repo cloned locally
+
+---
+
+## 1. Install dependencies
+
+From the repo root:
+
+```bash
+uv sync --directory build
+```
+
+Or from inside `build/`:
+
+```bash
+cd build && uv sync
+```
+
+---
+
+## 2. API keys and .env
+
+Create a `.env` file inside `build/` (and keep it out of version control). Required variables:
+
+| Variable | Purpose |
+|----------|---------|
+| `GOOGLE_API_KEY` | Google Cloud API key with **Places API (New)** enabled. |
+| `TICKETMASTER_API_KEY` | Ticketmaster Discovery API key. |
+
+Example `.env`:
+
+```env
+GOOGLE_API_KEY=your_google_api_key
+TICKETMASTER_API_KEY=your_ticketmaster_key
+```
+
+- **Google Places API:** See **[GOOGLE_PLACES_SETUP.md](./GOOGLE_PLACES_SETUP.md)** for creating a project, enabling the API, and creating an API key.
+- **Ticketmaster Discovery API:** See **[TICKETMASTER_SETUP.md](./TICKETMASTER_SETUP.md)** for signing up and getting an API key.
+
+---
+
+## 3. Run MCPJam Inspector
+
+1. Start MCPJam Inspector:
+
+   ```bash
+   npx @mcpjam/inspector@latest
+   ```
+
+2. Use the URL that opens in your browser to add and connect to the Local Discovery server.
+
+---
+
+## 4. Add and run the Local Discovery server
+
+1. In MCPJam, click **Add Server**.
+2. Configure:
+   - **Server name:** e.g. `Local Discovery`
+   - **Connection type:** `STDIO`
+   - **Command:** (replace `<path>` with the absolute path to your repo, e.g. `/Users/you/ship-fast-regret-faster`):
+
+   ```bash
+   uv --directory <path>/build run local_discovery.py
+   ```
+
+3. Click **Add server**, then **Connect**.
+4. In **Chat**, use **Show me connected tools** to see and use the tools.
 
 ---
 
 ## Overview
 
-This server uses **four APIs**:
+The server uses two external APIs:
 
-- **Google Places API (New)** – place search and place details (dine-in, delivery, takeout, vegetarian, etc.)
-- **Google Directions API** – travel time between two locations (driving, walking, bicycling, transit)
-- **Ticketmaster Discovery API** – events and venues (search by city, keyword, date range; event/venue details)
-- **OpenRouter API** – LLM summarization of discovery results (free tier with models like Llama)
+- **Google Places API (New)** — place search and place details (dine-in, delivery, takeout, vegetarian, etc.).
+- **Ticketmaster Discovery API** — events and venues (search by city, keyword, date range; event/venue details).
 
 ---
 
@@ -31,96 +110,56 @@ This server uses **four APIs**:
 | `find_venues_in_city` | Find venues (arenas, theaters, clubs) in a city. |
 | `get_venue_details_ticketmaster` | Full venue details by ID. |
 | `find_events_at_venue` | Upcoming events at a specific venue. |
-| `get_travel_time` | Travel time and distance between two coordinates (driving, walking, bicycling, transit). |
-| `summarize_recommendations` | Summarize discovery results (e.g. from the tools above) into a short paragraph via OpenRouter. |
 
 ## Resources
 
-- **`place://{key}`** – Stored place IDs (e.g. `place://latest` after a place search).
-- **`event://{key}`** – Stored event IDs (e.g. `event://latest` after an event search).
+- **`place://{key}`** — Stored place IDs (e.g. `place://latest` after a place search).
+- **`event://{key}`** — Stored event IDs (e.g. `event://latest` after an event search).
 
 ---
 
-## Setup
+## Architecture
 
-### 1. Install dependencies
-
-From the `local-discovery` directory:
-
-```bash
-uv sync
-# or: pip install -e .
-```
-
-### 2. API keys
-
-Create a `.env` file in `local-discovery` (and add it to `.gitignore`). Required variables:
-
-| Variable | Purpose |
-|----------|---------|
-| `GOOGLE_API_KEY` | Google Cloud API key with **Places API (New)** and **Directions API** enabled. |
-| `TICKETMASTER_API_KEY` | [Ticketmaster Discovery API](https://developer.ticketmaster.com/) key. |
-| `OPENROUTER_API_KEY` | [OpenRouter](https://openrouter.ai/) key for summarization (free tier: 50 req/day, 20/min). |
-
-Example `.env`:
-
-```env
-GOOGLE_API_KEY=your_google_api_key
-TICKETMASTER_API_KEY=your_ticketmaster_key
-OPENROUTER_API_KEY=your_openrouter_key
-```
+- **FastMCP** (`mcp.server.fastmcp`) for tool and resource registration.
+- **Async HTTP** via `httpx` in `api_clients.py` for Google Places and Ticketmaster.
+- **In-memory storage** for the latest place and event IDs; exposed as resources `place://latest` and `event://latest`.
+- **Error handling** for missing API keys and failed requests (no secrets in logs).
 
 ---
 
-## Running the server
+## Rate limits
 
-Start the MCP server (stdio transport):
-
-```bash
-uv run python local_discovery.py
-```
-
-Or with Python directly:
-
-```bash
-python local_discovery.py
-```
-
-Use this server from any MCP client (e.g. Claude Desktop, Cursor) by configuring it to run the above command.
+- **Google Places API:** Subject to Google Cloud quotas and SKU-based billing (Essentials/Pro). Use field masks to limit requested fields and stay within free tier where possible.
+- **Ticketmaster Discovery API:** Subject to Ticketmaster rate limits; check the [developer portal](https://developer.ticketmaster.com/) for current quotas.
+- Stay within provider limits to avoid throttling or extra charges.
 
 ---
 
 ## Project structure
 
 ```
-local-discovery/
-├── README.md           # This file
-├── PLAN.md             # Implementation plan and tool details
-├── API_REFERENCE.md    # API endpoints and auth
-├── ADDITIONAL_TOOLS.md  # More tool ideas (Google Places / Ticketmaster)
-├── GOOGLE_PLACES_TOOLS.md
-├── pyproject.toml      # Dependencies
-├── local_discovery.py  # MCP server (tools, resources, entrypoint)
-├── api_clients.py      # Google, Ticketmaster, OpenRouter API clients
-└── .env                # API keys (create locally, do not commit)
+build/
+├── README.md                 # This file
+├── GOOGLE_PLACES_SETUP.md    # Google Places API key setup
+├── TICKETMASTER_SETUP.md     # Ticketmaster Discovery API key setup
+├── API_REFERENCE.md          # API endpoints and auth reference
+├── GOOGLE_PLACES_TOOLS.md    # Optional: extra Google Places tool ideas (free-tier)
+├── ADDITIONAL_TOOLS.md       # Optional: more tool ideas
+├── TOOL_IDEAS.md             # Optional: tool backlog
+├── pyproject.toml            # Project and dependencies (uv)
+├── uv.lock                   # Locked dependencies
+├── local_discovery.py        # MCP server (tools, resources, entrypoint)
+├── api_clients.py            # Google Places & Ticketmaster API clients
+├── google_searchtext_response.json  # Sample response (reference)
+└── .env                      # API keys (create locally; do not commit)
 ```
 
 ---
 
 ## Documentation
 
-- **[API_REFERENCE.md](./API_REFERENCE.md)** – APIs used (Google Places, Directions, Ticketmaster, OpenRouter).
-- **[PLAN.md](./PLAN.md)** – Implementation plan, tool specs, and extension ideas.
-- **[ADDITIONAL_TOOLS.md](./ADDITIONAL_TOOLS.md)** – Extra tools you can add (attractions, open now, photos, etc.).
-- **[GOOGLE_PLACES_TOOLS.md](./GOOGLE_PLACES_TOOLS.md)** – Google Places–specific tool ideas.
-
----
-
-## Architecture
-
-- **FastMCP** for tool and resource registration.
-- **Async HTTP** via `httpx` in `api_clients.py`.
-- **In-memory storage** for the latest place and event IDs (exposed as resources).
-- **Error handling** and safe handling of missing API keys or failed requests.
-
-Rate limits: respect Google Cloud and Ticketmaster quotas; OpenRouter free tier is 50 requests/day and 20/minute.
+- **[GOOGLE_PLACES_SETUP.md](./GOOGLE_PLACES_SETUP.md)** — How to get and configure a Google Places API key.
+- **[TICKETMASTER_SETUP.md](./TICKETMASTER_SETUP.md)** — How to get a Ticketmaster Discovery API key.
+- **[API_REFERENCE.md](./API_REFERENCE.md)** — API endpoints and authentication used by the server.
+- **[GOOGLE_PLACES_TOOLS.md](./GOOGLE_PLACES_TOOLS.md)** — Optional: more Google Places tool ideas (free-tier eligible).
+- **[ADDITIONAL_TOOLS.md](./ADDITIONAL_TOOLS.md)** — Optional: extension ideas for places and events.
