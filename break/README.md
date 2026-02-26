@@ -2,7 +2,9 @@
 
 Welcome to Phase 2 of the workshop, where you will apply your understanding of common MCP vulnerabilities to break MCP servers in a fun, Capture the Flag style exercise!
 
-This repo contains standalone MCP challenge servers you can run, connect to and play around with through [**MCPJam Inspector**](https://github.com/MCPJam/inspector). Each challenge has a flag in the format `CTF{...}`. Use the checklist at the bottom to track which ones you've completed. Stuck? See [SOLUTIONS.md](SOLUTIONS.md) for the intended solutions (spoilers).
+This repo contains standalone MCP challenge servers you can run, connect to and play around with through [**MCPJam Inspector**](https://github.com/MCPJam/inspector). Each challenge has a flag in the format `CTF{...}`. Use the checklist at the bottom to track which ones you've completed. Stuck? Ask workshop facilitators for a hint!
+
+Solutions will be shared towards the end of Break Phase.
 
 ---
 
