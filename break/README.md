@@ -10,7 +10,6 @@ Solutions will be shared towards the end of Break Phase.
 
 ## Prerequisites
 
-- MCPJam account (for model access) — [sign up](https://login.mcpjam.com/sign-up)
 - **Node.js** and **npm** (for MCPJam) - [install](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
   <br> Note (macOS): `npx` should be available by default with Node.js. If it is not available, run:
    ```bash
@@ -31,7 +30,8 @@ Solutions will be shared towards the end of Break Phase.
    npx @mcpjam/inspector@latest
    ```
 
-2. MCPJam will open in your browser (or give you a URL). Use it to add and connect to the challenge servers below.
+2. MCPJam Inspector will open up in your browser
+3. Sign in to use freely available models.
 
 ---
 

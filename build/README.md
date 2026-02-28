@@ -16,7 +16,6 @@ The server exposes tools and resources so an AI (or user) can search for restaur
   ```bash
   brew update && brew install node
   ```
-- **MCPJam account** (for model access in Inspector) — [sign up](https://login.mcpjam.com/sign-up)
 - This repo cloned locally
 
 ---
@@ -66,7 +65,8 @@ TICKETMASTER_API_KEY=your_ticketmaster_key
    npx @mcpjam/inspector@latest
    ```
 
-2. Use the URL that opens in your browser to add and connect to the Local Discovery server.
+2. MCPJam Inspector will open up in your browser
+3. Sign in to use freely available models.
 
 ---
 
@@ -75,7 +75,7 @@ TICKETMASTER_API_KEY=your_ticketmaster_key
 1. In MCPJam, click **Add Server**.
 2. Configure:
    - **Server name:** e.g. `Local Discovery`
-   - **Connection type:** `STDIO`
+   - **Connection type:** `STDIO` (since the server is run locally)
    - **Command:** (replace `<path>` with the absolute path to your repo, e.g. `/Users/you/ship-fast-regret-faster`):
 
    ```bash
@@ -116,6 +116,11 @@ The server uses two external APIs:
 - **`place://{key}`** — Stored place IDs (e.g. `place://latest` after a place search).
 - **`event://{key}`** — Stored event IDs (e.g. `event://latest` after an event search).
 
+## Prompts
+
+- **`plan_concert_and_dinner`** - Prompt to plan a concert and dinner in a given city
+- **`full_day_plan`** - Prompt to plan a full day in a given city on a given date. Includes coffee, event and dinner.
+
 ---
 
 ## Architecture
@@ -123,7 +128,7 @@ The server uses two external APIs:
 - **FastMCP** (`mcp.server.fastmcp`) for tool and resource registration.
 - **Async HTTP** via `httpx` in `api_clients.py` for Google Places and Ticketmaster.
 - **In-memory storage** for the latest place and event IDs; exposed as resources `place://latest` and `event://latest`.
-- **Error handling** for missing API keys and failed requests (no secrets in logs).
+- **Error handling** for missing API keys and failed requests.
 
 ---
 
@@ -161,5 +166,4 @@ build/
 - **[GOOGLE_PLACES_SETUP.md](./GOOGLE_PLACES_SETUP.md)** — How to get and configure a Google Places API key.
 - **[TICKETMASTER_SETUP.md](./TICKETMASTER_SETUP.md)** — How to get a Ticketmaster Discovery API key.
 - **[API_REFERENCE.md](./API_REFERENCE.md)** — API endpoints and authentication used by the server.
-- **[GOOGLE_PLACES_TOOLS.md](./GOOGLE_PLACES_TOOLS.md)** — Optional: more Google Places tool ideas (free-tier eligible).
-- **[ADDITIONAL_TOOLS.md](./ADDITIONAL_TOOLS.md)** — Optional: extension ideas for places and events.
+- **[TOOL_IDEAS.md](./TOOL_IDEAS.md)** - Ideas to add more tools to this server
