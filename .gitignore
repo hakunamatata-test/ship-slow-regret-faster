@@ -8,8 +8,14 @@ venv/
 # Cursor
 .cursor/
 
+# Local history (e.g. VSCode/Cursor)
+.history/
+
 # OS
 .DS_Store
 
 # Environment variables
 .env
+
+# Local slides / workshop content (not for repo)
+break/slides/

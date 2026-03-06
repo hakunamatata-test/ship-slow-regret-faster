@@ -20,6 +20,53 @@ The server exposes tools and resources so an AI (or user) can search for restaur
 
 ---
 
+## Troubleshooting: npm / Node.js on macOS
+
+If you hit errors with **npm** or **Node.js** on a Mac during the Build phase, try the following.
+
+**You may not need `npm install`.** For this workshop you only need **Node and npm** so that **`npx @mcpjam/inspector@latest`** works (npx runs the Inspector without a global install). If something is asking you to run `npm install` in a project, that may be from another step; for MCPJam Inspector, `npx` is enough.
+
+1. **Check Node and npm**
+   ```bash
+   node -v    # expect v18 or newer
+   npm -v
+   npx -v
+   ```
+   If any of these fail, Node isn’t installed or isn’t on your `PATH`.
+
+2. **Install or reinstall Node (Homebrew)**
+   ```bash
+   brew update
+   brew install node
+   ```
+   Then close and reopen your terminal and run `node -v` and `npx -v` again.
+
+3. **Permission errors (EACCES)**
+   - Don’t use `sudo npm install` or `sudo npx`.
+   - If you get EACCES when npm writes to a directory, either:
+     - Use a version manager so everything lives under your home directory: [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm): install Node with that, then use `npx` in a new shell; or
+     - Fix npm’s global prefix: [npm docs – fixing permissions](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally).
+
+4. **Native build / compile errors**
+   Some packages need build tools. On macOS, install Xcode Command Line Tools:
+   ```bash
+   xcode-select --install
+   ```
+   Then retry.
+
+5. **Network / proxy**
+   If you’re on a corporate network or proxy, npm may need configuration (e.g. `npm config set proxy ...` / `https-proxy`). Ask your IT for the proxy URL and use [npm config](https://docs.npmjs.com/cli/v10/commands/npm-config).
+
+6. **Clear npm cache and retry**
+   ```bash
+   npm cache clean --force
+   npx @mcpjam/inspector@latest
+   ```
+
+If it still fails, share the **exact command** you ran and the **full error message** (or a screenshot) with the facilitators.
+
+---
+
 ## 1. Install dependencies
 
 From the repo root:
