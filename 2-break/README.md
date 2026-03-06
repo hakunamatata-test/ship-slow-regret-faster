@@ -47,12 +47,12 @@ For each challenge you want to play:
 
    | Challenge | Command |
    |-----------|--------|
-   | 01 Oops that was private | `uv --directory <path>/break/01-oops-that-was-private run challenge.py` |
-   | 02 Deputy in the middle | `uv --directory <path>/break/02-deputy-in-the-middle run challenge.py` |
-   | 03 Looks legit to me | `uv --directory <path>/break/03-looks-legit-to-me run challenge.py` |
-   | 04 Name your poison | `uv --directory <path>/break/04-name-your-poison run challenge.py` |
-   | 05 Behind the curtain | `uv --directory <path>/break/05-behind-the-curtain run challenge.py` |
-   | 06 Forward thinking | `uv --directory <path>/break/06-forward-thinking run challenge.py` |
+   | 01 Oops that was private | `uv --directory <path>/2-break/01-oops-that-was-private run challenge.py` |
+   | 02 Deputy in the middle | `uv --directory <path>/2-break/02-deputy-in-the-middle run challenge.py` |
+   | 03 Looks legit to me | `uv --directory <path>/2-break/03-looks-legit-to-me run challenge.py` |
+   | 04 Name your poison | `uv --directory <path>/2-break/04-name-your-poison run challenge.py` |
+   | 05 Behind the curtain | `uv --directory <path>/2-break/05-behind-the-curtain run challenge.py` |
+   | 06 Forward thinking | `uv --directory <path>/2-break/06-forward-thinking run challenge.py` |
 
 2. Click **Add server**.
 

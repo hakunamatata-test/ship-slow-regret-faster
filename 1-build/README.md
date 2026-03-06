@@ -72,20 +72,20 @@ If it still fails, share the **exact command** you ran and the **full error mess
 From the repo root:
 
 ```bash
-uv sync --directory build
+uv sync --directory 1-build
 ```
 
-Or from inside `build/`:
+Or from inside `1-build/`:
 
 ```bash
-cd build && uv sync
+cd 1-build && uv sync
 ```
 
 ---
 
 ## 2. API keys and .env
 
-Create a `.env` file inside `build/` (and keep it out of version control). Required variables:
+Create a `.env` file inside `1-build/` (and keep it out of version control). Required variables:
 
 | Variable | Purpose |
 |----------|---------|
@@ -126,7 +126,7 @@ TICKETMASTER_API_KEY=your_ticketmaster_key
    - **Command:** (replace `<path>` with the absolute path to your repo, e.g. `/Users/you/ship-fast-regret-faster`):
 
    ```bash
-   uv --directory <path>/build run local_discovery.py
+   uv --directory <path>/1-build run local_discovery.py
    ```
 
 3. Click **Add server**, then **Connect**.
@@ -190,7 +190,7 @@ The server uses two external APIs:
 ## Project structure
 
 ```
-build/
+1-build/
 ├── README.md                 # This file
 ├── GOOGLE_PLACES_SETUP.md    # Google Places API key setup
 ├── TICKETMASTER_SETUP.md     # Ticketmaster Discovery API key setup

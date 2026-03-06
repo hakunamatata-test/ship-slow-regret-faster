@@ -18,4 +18,4 @@ venv/
 .env
 
 # Local slides / workshop content (not for repo)
-break/slides/
+2-break/slides/

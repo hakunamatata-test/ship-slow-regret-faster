@@ -45,7 +45,7 @@ To reduce risk of misuse:
 
 ## 5. Add the key to the build server
 
-In the `build/` directory, create or edit `.env`:
+In the `1-build/` directory, create or edit `.env`:
 
 ```env
 GOOGLE_API_KEY=your_api_key_here
