@@ -2,11 +2,14 @@
 
 This guide consolidates the setup instructions for the **Build** and **Break** phases of the workshop. Complete these steps before starting either phase.
 
+You'll need a terminal (PowerShell on Windows). The workshop repo will be shared later,clone it locally once the link is shared by the instructors.
+
 ---
 
 ## 1. Install uv
 
 **uv** is the Python package manager used to run the MCP servers in this repo.
+**Reference:** [uv installation docs](https://docs.astral.sh/uv/getting-started/installation/)
 
 ### macOS
 
@@ -35,13 +38,20 @@ This guide consolidates the setup instructions for the **Build** and **Break** p
 - **PyPI (if you have pip):** `pipx install uv` or `pip install uv`
 - **Cargo (if you have Rust):** `cargo install --locked uv`
 
-**Reference:** [uv installation docs](https://docs.astral.sh/uv/getting-started/installation/)
-
 ---
 
 ## 2. Install Node.js and npx
 
 **Node.js** and **npm** are required so you can run **MCPJam Inspector** via `npx` (no global install needed). **npx** is included with npm.
+
+### Check if you have them already installed
+
+```bash
+node -v 
+npm -v
+npx -v
+```
+If you see a version number for all three, you can skip this step and proceed to step 3.
 
 ### macOS
 
@@ -68,13 +78,7 @@ This guide consolidates the setup instructions for the **Build** and **Break** p
   - **Arch:** `sudo pacman -S nodejs npm`
 - **Version manager:** [nvm](https://github.com/nvm-sh/nvm), [n](https://github.com/tj/n), or [fnm](https://github.com/Schniz/fnm).
 
-### Verify (all platforms)
-
-```bash
-node -v   # expect v18 or newer
-npm -v
-npx -v
-```
+After installing, run `node -v` (and optionally `npm -v`, `npx -v`) again to confirm. Node v18 or newer is recommended.
 
 ---
 
@@ -82,7 +86,7 @@ npx -v
 
 MCPJam Inspector is the client you’ll use to connect to and test MCP servers (Build and Break).
 
-1. Start the inspector:
+1. Start the inspector in your terminal:
 
    ```bash
    npx @mcpjam/inspector@latest
@@ -91,21 +95,18 @@ MCPJam Inspector is the client you’ll use to connect to and test MCP servers (
 2. MCPJam Inspector will open in your browser.
 3. Sign in to use freely available models.
 
-For Build and Break, add servers in MCPJam with **Connection type: STDIO** and the command given in each phase’s README (`1-build/README.md` or `2-break/README.md`).
+**Reference:** [MCPJam Inspector](https://github.com/MCPJam/inspector)
 
 ---
 
 ## 4. Join the Slack workspace
 
-Join the workshop Slack workspace for support, hints, and discussion:
-
 **[Join Build Break Defend MCP on Slack](https://join.slack.com/t/buildbreakdefend-mcp/shared_invite/zt-3r2jeltsn-djKDIBTNxpnorDww9Hbn_Q)**
 
-Use this workspace to ask facilitators for help, share progress, and get updates during the workshop.
+Use this workspace to ask facilitators for support, hints, and discussions during the workshop. Post your questions/threads in #wicys-workshop channel
 
 ---
 
-## Next steps
+# Next Steps
 
-- **Build phase:** See [1-build/README.md](1-build/README.md) for dependencies, API keys, and running the Local Discovery server.
-- **Break phase:** See [2-break/README.md](2-break/README.md) for running the CTF challenge servers.
+Once your setup is complete, you're all set! Join the Slack workspace and follow the channel for updates. The main repo will be shared closer to the workshop.
