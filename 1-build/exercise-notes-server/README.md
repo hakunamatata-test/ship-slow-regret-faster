@@ -8,11 +8,11 @@ Complete the workshop setup from [SETUP INSTRUCTIONS](../../README.md)
 
 ## Goal
 
-1. Implement `**list_notes()**` — return a list of all note ids and titles.
-2. Implement `**get_note(note_id)**` — return one note's title and content, or "Not found".
-3. Implement `**delete_note(note_id)**` — remove a note and return "Deleted." or "Not found".
+1. Implement `list_notes()` — return a list of all note ids and titles.
+2. Implement `get_note(note_id)` — return one note's title and content, or "Not found".
+3. Implement `delete_note(note_id)` — remove a note and return "Deleted." or "Not found".
 
-The `**add_note(title, content)**` tool is already implemented. Use it to create notes, then implement the rest so you can list, read, and delete them via tools.
+The `add_note(title, content)` tool is already implemented. Use it to create notes, then implement the rest so you can list, read, and delete them via tools.
 
 ## Steps
 
@@ -46,9 +46,9 @@ Title - conference reflections
 Content - I had a great time at WiCyS conference. The MCP workshop was the best part.
 
 Title - what is MCP?
-Content - MCP stands for Model Context Protocol, which is a standardized way for LLMs or AI apps to connect to data and resources
+Content - MCP stands for Model Context Protocol, which is a standardized way for LLMs or AI apps to connect to data and resources.
 
 Title - MCP primitives 
-Content - MCP server contains 3 primitives - tools, resources and prompts
+Content - MCP server contains 3 primitives - tools, resources and prompts.
 ```
 
