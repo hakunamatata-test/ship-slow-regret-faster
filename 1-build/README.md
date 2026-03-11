@@ -37,22 +37,7 @@ The `1-build/` folder contains two MCP server projects:
 
 ---
 
-## 2. Add and run the Local Discovery server (demo)
-
-Follow the [Local Discovery README](./local_discovery/README.md) for API keys, `.env` setup, and running the server. Summary:
-
-1. Install dependencies and add a `.env` file with `GOOGLE_API_KEY` and `TICKETMASTER_API_KEY` (see [local_discovery/README.md](./local_discovery/README.md#api-keys-and-env)).
-2. In MCPJam, click **Add Server**. Use **Connection type** `STDIO` and **Command** (replace `<path>` with your repo path):
-
-   ```bash
-   uv --directory <path>/1-build/local_discovery run local_discovery.py
-   ```
-
-3. Click **Add server**, then **Connect**. In **Chat**, use **Show me connected tools** to try the demo.
-
----
-
-## 3. Workshop exercise: Simple Notes server
+## 2. Workshop exercise: Simple Notes server
 
 During the session, complete the **Simple Notes** exercise (~10 min). No API keys required.
 
@@ -64,6 +49,22 @@ During the session, complete the **Simple Notes** exercise (~10 min). No API key
   ```
 
 Install dependencies first: `uv sync --directory <path>/1-build/exercise-notes-server`.
+
+---
+
+## 3. Take home exercise: Local Discovery server
+
+Follow the [Local Discovery README](./local_discovery/README.md) for API keys, `.env` setup, and running the server. Summary:
+
+1. Install dependencies and add a `.env` file with `GOOGLE_API_KEY` and `TICKETMASTER_API_KEY` (see [local_discovery/README.md](./local_discovery/README.md#api-keys-and-env)).
+2. In MCPJam, click **Add Server**. Use **Connection type** `STDIO` and **Command** (replace `<path>` with your repo path):
+
+   ```bash
+   uv --directory <path>/1-build/local_discovery run local_discovery.py
+   ```
+
+3. Click **Add server**, then **Connect**. In **Chat**, use **Show me connected tools** to try the demo.
+4. Add more tools, resources and prompts to extend functionality
 
 ---
 
