@@ -16,6 +16,3 @@ venv/
 
 # Environment variables
 .env
-
-# Local slides / workshop content (not for repo)
-2-break/slides/

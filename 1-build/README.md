@@ -1,6 +1,6 @@
 # BUILD the MCP
 
-This phase focuses on **building** a real MCP (Model Context Protocol) server: **Local Discovery & Events**. You will run it through [**MCPJam Inspector**](https://github.com/MCPJam/inspector), and interact with it via chat and tools.
+Welcome to Phase 1 of this workshop - Build! This phase focuses on **building** a real MCP (Model Context Protocol) server: **Local Discovery & Events**. You will run it through [**MCPJam Inspector**](https://github.com/MCPJam/inspector), and interact with it via chat and tools. The Build phase includes a **demo** (Local Discovery) and a **~10 minute exercise** (add tools to the simple Notes server in `exercise-notes-server/`).
 
 **Story:** *"Help me discover local restaurants, events, and activities. Find places, check dine-in/delivery/vegetarian options, and explore events and venues in my area."*
 
@@ -134,6 +134,21 @@ TICKETMASTER_API_KEY=your_ticketmaster_key
 
 ---
 
+## 5. Exercise: Add tools to the simple server
+
+After the Local Discovery demo, complete the **Simple Notes** exercise (~10 min). No API keys or `.env` required.
+
+- **Instructions:** [exercise-notes-server/README.md](./exercise-notes-server/README.md)
+- **Run in MCPJam:** Add a server with **Connection type** `STDIO` and **Command** (replace `<path>` with your repo path):
+
+  ```bash
+  uv --directory <path>/1-build/exercise-notes-server run simple_notes.py
+  ```
+
+Install dependencies first: `uv sync --directory <path>/1-build/exercise-notes-server`.
+
+---
+
 ## Overview
 
 The server uses two external APIs:
@@ -192,18 +207,19 @@ The server uses two external APIs:
 ```
 1-build/
 ├── README.md                 # This file
+├── exercise-notes-server/    # ~10 min exercise: add tools to simple_notes.py
+│   ├── README.md             # Exercise instructions
+│   ├── pyproject.toml
+│   └── simple_notes.py       # Starter scaffold (TODO: list_notes, get_note, delete_note, note resource)
+├── local_discovery/          # Local Discovery MCP server (demo)
+│   ├── ...
 ├── GOOGLE_PLACES_SETUP.md    # Google Places API key setup
 ├── TICKETMASTER_SETUP.md     # Ticketmaster Discovery API key setup
 ├── API_REFERENCE.md          # API endpoints and auth reference
 ├── GOOGLE_PLACES_TOOLS.md    # Optional: extra Google Places tool ideas (free-tier)
 ├── ADDITIONAL_TOOLS.md       # Optional: more tool ideas
 ├── TOOL_IDEAS.md             # Optional: tool backlog
-├── pyproject.toml            # Project and dependencies (uv)
-├── uv.lock                   # Locked dependencies
-├── local_discovery.py        # MCP server (tools, resources, entrypoint)
-├── api_clients.py            # Google Places & Ticketmaster API clients
-├── google_searchtext_response.json  # Sample response (reference)
-└── .env                      # API keys (create locally; do not commit)
+└── .env                      # API keys for Local Discovery (create locally; do not commit)
 ```
 
 ---
